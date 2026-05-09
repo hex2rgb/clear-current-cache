@@ -4,7 +4,7 @@ import "~style.css"
 
 function IndexPopup() {
   return (
-    <div className="plasmo-flex plasmo-items-center plasmo-justify-center plasmo-h-[200px] plasmo-w-[240px]">
+    <div className="plasmo-flex plasmo-items-center plasmo-justify-center plasmo-h-[400px] plasmo-w-[240px]">
       <ClearCacheButton />
     </div>
   )
