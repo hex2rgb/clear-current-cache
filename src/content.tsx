@@ -1,11 +1,38 @@
 import cssText from "data-text:~style.css"
 import type { PlasmoCSConfig } from "plasmo"
 
-import { CountButton } from "~features/count-button"
+import { ClearCacheButton } from "~features/clear-cache-button"
 
 export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"]
 }
+
+// 监听来自 popup 的消息
+browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+  if (message.action === 'clearCache') {
+    try {
+      // 清除 localStorage 和 sessionStorage
+      localStorage.clear()
+      sessionStorage.clear()
+
+      // 清除当前域名的 cookies
+      const url = new URL(message.url || 'https://example.com')
+      const cookies = await browser.cookies.getAll({ domain: url.hostname })
+      for (const cookie of cookies) {
+        await browser.cookies.remove({
+          name: cookie.name,
+          url: message.url || ''
+        })
+      }
+
+      sendResponse({ success: true })
+    } catch (e) {
+      console.error('Failed to clear cache:', e)
+      sendResponse({ success: false })
+    }
+  }
+  return true
+})
 
 /**
  * Generates a style element with adjusted CSS to work correctly within a Shadow DOM.
@@ -37,12 +64,4 @@ export const getStyle = (): HTMLStyleElement => {
   return styleElement
 }
 
-const PlasmoOverlay = () => {
-  return (
-    <div className="plasmo-z-50 plasmo-flex plasmo-fixed plasmo-top-32 plasmo-right-8">
-      <CountButton />
-    </div>
-  )
-}
-
-export default PlasmoOverlay
+// 注意：此文件仅用于清除缓存的消息处理，不在页面注入任何元素

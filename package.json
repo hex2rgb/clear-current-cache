@@ -21,6 +21,7 @@
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
+    "@types/webextension-polyfill": "^0.12.5",
     "postcss": "8.4.33",
     "prettier": "3.2.4",
     "typescript": "5.3.3"
@@ -28,6 +29,13 @@
   "manifest": {
     "host_permissions": [
       "https://*/*"
+    ],
+    "permissions": [
+      "tabs",
+      "cookies",
+      "scripting",
+      "browsingData",
+      "<all_urls>"
     ]
   }
 }
