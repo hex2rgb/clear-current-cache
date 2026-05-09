@@ -31,11 +31,11 @@
       "https://*/*"
     ],
     "permissions": [
+      "activeTab",
       "tabs",
       "cookies",
       "scripting",
-      "browsingData",
-      "<all_urls>"
+      "browsingData"
     ]
   }
 }
