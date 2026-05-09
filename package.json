@@ -2,7 +2,7 @@
   "name": "clear-current-cache",
   "displayName": "Clear current cache",
   "version": "0.0.1",
-  "description": "clear-current-cache",
+  "description": "清当前域、子域缓存包括但是不限于cookie、storage等",
   "author": "Cyber Zen",
   "scripts": {
     "dev": "plasmo dev",
